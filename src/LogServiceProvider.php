@@ -14,12 +14,12 @@ class LogServiceProvider extends ServiceProvider
     {
         if (function_exists('config_path')) { // function not available and 'publish' not relevant in Lumen
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('config.php'),
+                __DIR__.'/../config/config.php' => config_path('artLog.php'),
             ], 'config');
 
-//            $this->publishes([
-//                __DIR__ . '/../database/migrations/create_smo_tables.php.stub' => $this->getMigrationFileName($filesystem),
-//            ], 'migrations');
+            $this->publishes([
+                __DIR__ . '/../database/migrations/create_logs_table.php.stub' => $this->getMigrationFileName($filesystem),
+            ], 'migrations');
         }
 
 //        $this->registerMacroHelpers();
@@ -29,7 +29,7 @@ class LogServiceProvider extends ServiceProvider
 //        ]);
 
 //        $this->registerModelBindings();
-//
+
 //        $permissionLoader->clearClassPermissions();
 //        $permissionLoader->registerPermissions();
 
@@ -202,8 +202,8 @@ class LogServiceProvider extends ServiceProvider
 
         return Collection::make($this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR)
             ->flatMap(function ($path) use ($filesystem) {
-                return $filesystem->glob($path.'*_create_smo_tables.php');
-            })->push($this->app->databasePath()."/migrations/{$timestamp}_create_smo_tables.php")
+                return $filesystem->glob($path.'*_create_log_tables.php');
+            })->push($this->app->databasePath()."/migrations/{$timestamp}_create_log_tables.php")
             ->first();
     }
 }

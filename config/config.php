@@ -1,5 +1,10 @@
 <?php
 
     return [
-        'models' => 'user test'
+        'models' => [
+            'role' => ArtemiyKudin\log\Models\Log::class,
+        ],
+        'table_names' => [
+            'logs' => 'logs',
+        ],
     ];
