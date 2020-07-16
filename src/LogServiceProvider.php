@@ -2,6 +2,7 @@
 
 namespace ArtemiyKudin\log;
 
+use ArtemiyKudin\log\Models\Log;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
@@ -28,7 +29,7 @@ class LogServiceProvider extends ServiceProvider
 //            Commands\CacheReset::class
 //        ]);
 
-//        $this->registerModelBindings();
+        $this->registerModelBindings();
 
 //        $permissionLoader->clearClassPermissions();
 //        $permissionLoader->registerPermissions();
@@ -82,26 +83,14 @@ class LogServiceProvider extends ServiceProvider
 //        $this->registerBladeExtensions();
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [Smo::class, 'smo'];
-    }
-
     protected function registerModelBindings()
     {
-        $config = $this->app->config['smoConfig.models'];
+        $config = $this->app->config['artLog.models'];
 
         if (! $config) {
             return;
         }
-        app('auth');
-//        $this->app->bind(PermissionContract::class, $config['permission']);
-//        $this->app->bind(RoleContract::class, $config['role']);
+        $this->app->bind(Log::class, $config['log']);
     }
 
     protected function registerBladeExtensions()
