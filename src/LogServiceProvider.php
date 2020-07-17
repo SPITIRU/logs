@@ -90,7 +90,7 @@ class LogServiceProvider extends ServiceProvider
         if (! $config) {
             return;
         }
-        $this->app->bind(Log::class, $config['log']);
+//        $this->app->bind(Log::class, $config['log']);
     }
 
     protected function registerBladeExtensions()
