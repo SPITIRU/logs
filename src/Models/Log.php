@@ -12,11 +12,11 @@ class Log extends Model
 
     public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(config('artLog.tables.users'), 'userID', 'userID');
+        return $this->hasOne(config('artLog.models.user'), 'userID', 'userID');
     }
 
     public function profile(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(config('artLog.tables.profiles'), 'profileID', 'profileID');
+        return $this->hasOne(config('artLog.models.profile'), 'profileID', 'profileID');
     }
 }

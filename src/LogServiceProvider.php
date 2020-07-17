@@ -46,9 +46,9 @@ class LogServiceProvider extends ServiceProvider
 //            'permission'
 //        );
 
-        $this->app->bind('smo', function () {
-            return new Smo;
-        }, true);
+//        $this->app->bind('smo', function () {
+//            return new Smo;
+//        }, true);
 //        $this->app->bindIf('smo', function () {
 //            return new Smo;
 //        }, true);
@@ -87,66 +87,68 @@ class LogServiceProvider extends ServiceProvider
     {
         $config = $this->app->config['artLog.models'];
 
-        if (! $config) {
+        dd($config);
+        if (!$config) {
             return;
         }
-//        $this->app->bind(Log::class, $config['log']);
+
+        $this->app->bind(Log::class, $config['log']);
     }
 
-    protected function registerBladeExtensions()
-    {
-        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
-            $bladeCompiler->directive('role', function ($arguments) {
-                list($role, $guard) = explode(',', $arguments.',');
-
-                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
-            });
-            $bladeCompiler->directive('elserole', function ($arguments) {
-                list($role, $guard) = explode(',', $arguments.',');
-
-                return "<?php elseif(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
-            });
-            $bladeCompiler->directive('endrole', function () {
-                return '<?php endif; ?>';
-            });
-
-            $bladeCompiler->directive('hasrole', function ($arguments) {
-                list($role, $guard) = explode(',', $arguments.',');
-
-                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
-            });
-            $bladeCompiler->directive('endhasrole', function () {
-                return '<?php endif; ?>';
-            });
-
-            $bladeCompiler->directive('hasanyrole', function ($arguments) {
-                list($roles, $guard) = explode(',', $arguments.',');
-
-                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasAnyRole({$roles})): ?>";
-            });
-            $bladeCompiler->directive('endhasanyrole', function () {
-                return '<?php endif; ?>';
-            });
-
-            $bladeCompiler->directive('hasallroles', function ($arguments) {
-                list($roles, $guard) = explode(',', $arguments.',');
-
-                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasAllRoles({$roles})): ?>";
-            });
-            $bladeCompiler->directive('endhasallroles', function () {
-                return '<?php endif; ?>';
-            });
-
-            $bladeCompiler->directive('unlessrole', function ($arguments) {
-                list($role, $guard) = explode(',', $arguments.',');
-
-                return "<?php if(!auth({$guard})->check() || ! auth({$guard})->user()->hasRole({$role})): ?>";
-            });
-            $bladeCompiler->directive('endunlessrole', function () {
-                return '<?php endif; ?>';
-            });
-        });
-    }
+//    protected function registerBladeExtensions()
+//    {
+//        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+//            $bladeCompiler->directive('role', function ($arguments) {
+//                list($role, $guard) = explode(',', $arguments.',');
+//
+/*                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";*/
+//            });
+//            $bladeCompiler->directive('elserole', function ($arguments) {
+//                list($role, $guard) = explode(',', $arguments.',');
+//
+/*                return "<?php elseif(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";*/
+//            });
+//            $bladeCompiler->directive('endrole', function () {
+/*                return '<?php endif; ?>';*/
+//            });
+//
+//            $bladeCompiler->directive('hasrole', function ($arguments) {
+//                list($role, $guard) = explode(',', $arguments.',');
+//
+/*                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";*/
+//            });
+//            $bladeCompiler->directive('endhasrole', function () {
+/*                return '<?php endif; ?>';*/
+//            });
+//
+//            $bladeCompiler->directive('hasanyrole', function ($arguments) {
+//                list($roles, $guard) = explode(',', $arguments.',');
+//
+/*                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasAnyRole({$roles})): ?>";*/
+//            });
+//            $bladeCompiler->directive('endhasanyrole', function () {
+/*                return '<?php endif; ?>';*/
+//            });
+//
+//            $bladeCompiler->directive('hasallroles', function ($arguments) {
+//                list($roles, $guard) = explode(',', $arguments.',');
+//
+/*                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasAllRoles({$roles})): ?>";*/
+//            });
+//            $bladeCompiler->directive('endhasallroles', function () {
+/*                return '<?php endif; ?>';*/
+//            });
+//
+//            $bladeCompiler->directive('unlessrole', function ($arguments) {
+//                list($role, $guard) = explode(',', $arguments.',');
+//
+/*                return "<?php if(!auth({$guard})->check() || ! auth({$guard})->user()->hasRole({$role})): ?>";*/
+//            });
+//            $bladeCompiler->directive('endunlessrole', function () {
+/*                return '<?php endif; ?>';*/
+//            });
+//        });
+//    }
 
     protected function registerMacroHelpers()
     {
