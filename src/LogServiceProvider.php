@@ -41,10 +41,10 @@ class LogServiceProvider extends ServiceProvider
 
     public function register()
     {
-//        $this->mergeConfigFrom(
-//            __DIR__.'/../config/сonfig.php',
-//            'permission'
-//        );
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/config.php',
+            'log'
+        );
 
 //        $this->app->bind('smo', function () {
 //            return new Smo;
@@ -85,9 +85,8 @@ class LogServiceProvider extends ServiceProvider
 
     protected function registerModelBindings()
     {
-        $config = $this->app->config['artLog.models'];
+        $config = $this->app->config['log.models'];
 
-        dd($config);
         if (!$config) {
             return;
         }

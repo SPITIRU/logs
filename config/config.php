@@ -1,14 +1,10 @@
 <?php
 
-    use ArtemiyKudin\log\Models\Log;
-    use Beauty\Modules\Common\Models\Profile;
-    use Beauty\Modules\Common\Models\User;
-
     return [
         'models' => [
-            'log' => Log::class,
-            'user' => User::class,
-            'profile' => Profile::class
+            'log' => \ArtemiyKudin\log\Models\Log::class,
+            'user' => \Beauty\Modules\Common\Models\User::class,
+            'profile' => \Beauty\Modules\Common\Models\Profile::class
         ],
         'table_names' => [
             'logs' => 'logs',
