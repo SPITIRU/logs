@@ -3,6 +3,7 @@
 namespace ArtemiyKudin\log;
 
 use ArtemiyKudin\log\Models\Log;
+use ArtemiyKudin\log\Services\LogService;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
@@ -43,7 +44,7 @@ class LogServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php',
-            'log'
+            'artLog'
         );
 
 //        $this->app->bind('smo', function () {
@@ -85,13 +86,15 @@ class LogServiceProvider extends ServiceProvider
 
     protected function registerModelBindings()
     {
-        $config = $this->app->config['log.models'];
+        $config = $this->app->config['artLog.models'];
 
         if (!$config) {
             return;
         }
 
         $this->app->bind(Log::class, $config['log']);
+        $this->app->bind(LogService::class, LogService::class);
+        dd($this->app->make(LogService::class));
     }
 
 //    protected function registerBladeExtensions()
