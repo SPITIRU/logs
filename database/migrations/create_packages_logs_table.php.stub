@@ -1,0 +1,69 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePackagesLogsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $foreign = config('artLog.foreign');
+        $tableNames = config('artLog.table_names');
+        $columnNames = config('artLog.column_names');
+
+        if (empty($tableNames)) {
+            throw new \Exception('Error: config/artLog.php not loaded. Run [php artisan config:clear] and try again.');
+        }
+
+        Schema::create($tableNames['logs'], function (Blueprint $table) use ($tableNames, $columnNames, $foreign) {
+            $table->integer('logID', true);
+            $table->integer('profileID')->unsigned();
+            $table->integer('userID')->unsigned();
+            $table->text('message');
+            $table->integer('typeID');
+            $table->boolean('isRead');
+            $table->timestamps();
+        });
+
+        Schema::table($tableNames['logs'], function (Blueprint $table) use ($foreign) {
+            if (isset($foreign['profiles'])) {
+                $table->foreign($foreign['profiles']['id'], 'FK_logs_profiles')
+                    ->references($foreign['profiles']['references'])
+                    ->on($foreign['profiles']['name'])
+                    ->onUpdate('RESTRICT')
+                    ->onDelete('CASCADE');
+            }
+
+            if (isset($foreign['profiles'])) {
+                $table->foreign($foreign['users']['id'], 'FK_logs_users')
+                    ->references($foreign['users']['references'])
+                    ->on($foreign['users']['name'])
+                    ->onUpdate('RESTRICT')
+                    ->onDelete('CASCADE');
+            }
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $tableNames = config('permission.table_names');
+
+        if (empty($tableNames)) {
+            throw new \Exception('Error: config/permission.php not found and defaults could not be merged. Please publish the package configuration before proceeding, or drop the tables manually.');
+        }
+
+        Schema::drop($tableNames['logs']);
+    }
+}

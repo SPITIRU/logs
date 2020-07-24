@@ -1,10 +1,26 @@
 <?php
 
+    use ArtemiyKudin\log\Models\Log;
+    use Beauty\Modules\Common\Models\Profile;
+    use Beauty\Modules\Common\Models\User;
+
     return [
+        'foreign' => [
+            'profiles' => [
+                'id' => 'profileID',
+                'references' => 'profileID',
+                'name' => 'profiles'
+            ],
+            'users' => [
+                'id' => 'userID',
+                'references' => 'userID',
+                'name' => 'users'
+            ]
+        ],
         'models' => [
-            'log' => \ArtemiyKudin\log\Models\Log::class,
-            'user' => \Beauty\Modules\Common\Models\User::class,
-            'profile' => \Beauty\Modules\Common\Models\Profile::class
+            'log' => Log::class,
+            'user' => User::class,
+            'profile' => Profile::class
         ],
         'table_names' => [
             'logs' => 'logs',

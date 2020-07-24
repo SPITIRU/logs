@@ -20,7 +20,7 @@ class LogServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_logs_table.php.stub' => $this->getMigrationFileName($filesystem),
+                __DIR__ . '/../database/migrations/create_packages_logs_table.php.stub' => $this->getMigrationFileName($filesystem),
             ], 'migrations');
         }
 
@@ -94,7 +94,6 @@ class LogServiceProvider extends ServiceProvider
 
         $this->app->bind(Log::class, $config['log']);
         $this->app->bind(LogService::class, LogService::class);
-        dd($this->app->make(LogService::class));
     }
 
 //    protected function registerBladeExtensions()
@@ -195,8 +194,8 @@ class LogServiceProvider extends ServiceProvider
 
         return Collection::make($this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR)
             ->flatMap(function ($path) use ($filesystem) {
-                return $filesystem->glob($path.'*_create_log_tables.php');
-            })->push($this->app->databasePath()."/migrations/{$timestamp}_create_log_tables.php")
+                return $filesystem->glob($path.'*_create_packages_logs_table.php');
+            })->push($this->app->databasePath()."/migrations/{$timestamp}_create_packages_logs_table.php")
             ->first();
     }
 }

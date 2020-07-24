@@ -2,6 +2,7 @@
 
 namespace ArtemiyKudin\log\Services;
 
+use ArtemiyKudin\log\Repositories\LogRepository;
 use Beauty\Modules\Common\Models\Profile;
 use Beauty\Modules\Common\Objects\Logs\Constants\LogsTypes;
 use Beauty\Modules\Common\Objects\Profile\Profile as Profiles;
