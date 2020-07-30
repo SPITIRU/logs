@@ -84,6 +84,7 @@ class LogServiceProvider extends ServiceProvider
 
     protected function registerModelBindings()
     {
+        dd(activity());
         $config = $this->app->config['artLog.models'];
 
         if (!$config) {
