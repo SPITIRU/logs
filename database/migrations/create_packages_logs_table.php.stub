@@ -26,6 +26,7 @@ class CreatePackagesLogsTable extends Migration
             $table->integer('profileID')->unsigned();
             $table->integer('userID')->unsigned();
             $table->text('message');
+            $table->text('useragent');
             $table->integer('typeID');
             $table->boolean('isRead');
             $table->timestamps();

@@ -2,13 +2,13 @@
 
 namespace ArtemiyKudin\log\Services;
 
-use ArtemiyKudin\log\Repositories\LogRepository;
+use ArtemiyKudin\log\Models\Log;
 use Beauty\Modules\Common\Models\Profile;
 use Beauty\Modules\Common\Objects\Logs\Constants\LogsTypes;
 use Beauty\Modules\Common\Objects\Profile\Profile as Profiles;
 use Carbon\Carbon;
 
-class LogService extends LogRepository
+class LogService
 {
     public function saveClientImportLog(int $userID, int $profileID, array $arrStatuses): void
     {
@@ -16,9 +16,13 @@ class LogService extends LogRepository
         $clientsCount = (int) $arrStatuses['success'] + (int) $arrStatuses['failed'];
 
         $message = __('logs.save_client_import_log');
-        $message = str_replace(['{count}', '{success}', '{failed}'], [$clientsCount, $arrStatuses['success'], $arrStatuses['failed']], $message);
+        $message = str_replace(
+            ['{count}', '{success}', '{failed}'],
+            [$clientsCount, $arrStatuses['success'], $arrStatuses['failed']],
+            $message
+        );
 
-        $this->saveLog($userID, $profileID, $logTypes->importType(), $message);
+        resolve(Log::class)->saveLog($userID, $profileID, $logTypes->importType(), $message);
     }
 
     public function getLogs(object $data, int $profileID): array
@@ -115,19 +119,6 @@ class LogService extends LogRepository
         $model->delete();
 
         return $this->getLogs($data, $profileID);
-    }
-
-    private function saveLog(int $userID, int $profileID, int $typeID, string $message): void
-    {
-        $model = $this->model;
-        $model->userID = $userID;
-        $model->profileID = $profileID;
-        $model->typeID = $typeID;
-        $model->message = $message;
-        $model->useragent = request()->userAgent();
-        $model->ip = request()->ip();
-        $model->isRead = 0;
-        $model->save();
     }
 
 //    public function deleteLogs()

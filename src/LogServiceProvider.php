@@ -27,6 +27,7 @@ class LogServiceProvider extends ServiceProvider
                 __DIR__ . '/../lang' => resource_path('/lang'),
             ], 'lang');
         }
+        $this->loadFactoriesFrom(__DIR__.'/../database/factories');
 
         $this->registerModelBindings();
 
@@ -84,7 +85,6 @@ class LogServiceProvider extends ServiceProvider
 
     protected function registerModelBindings()
     {
-        dd(activity());
         $config = $this->app->config['artLog.models'];
 
         if (!$config) {

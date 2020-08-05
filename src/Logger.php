@@ -10,12 +10,12 @@ class Logger
 //    {
 //    }
 
-    public function log()
-    {
-        dd($this->activity);
-        $log = $this->activity;
-        $log->save();
-
-        return $log;
-    }
+//    public function log()
+//    {
+//        dd($this->activity);
+//        $log = $this->activity;
+//        $log->save();
+//
+//        return $log;
+//    }
 }

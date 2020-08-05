@@ -5,23 +5,18 @@
     use Beauty\Modules\Common\Models\User;
 
     return [
-        'foreign' => [
-            'profiles' => [
-                'id' => 'profileID',
-                'references' => 'profileID',
-                'name' => 'profiles'
-            ],
-            'users' => [
-                'id' => 'userID',
-                'references' => 'userID',
-                'name' => 'users'
-            ]
+        'column_names' => [
+            'profiles_key' => 'profileID',
+            'users_key' => 'userID',
+            'logs_key' => 'userID',
         ],
+
         'models' => [
             'log' => Log::class,
             'user' => User::class,
             'profile' => Profile::class
         ],
+
         'table_names' => [
             'logs' => 'logs',
             'users' => 'users',
