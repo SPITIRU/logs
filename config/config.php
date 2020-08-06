@@ -11,11 +11,15 @@
             'logs_key' => 'userID',
         ],
 
+        'middleware' => [],
+
         'models' => [
             'log' => Log::class,
             'user' => User::class,
             'profile' => Profile::class
         ],
+
+        'prefix' => 'api/crm',
 
         'table_names' => [
             'logs' => 'logs',

@@ -3,7 +3,7 @@
 namespace ArtemiyKudin\log;
 
 use ArtemiyKudin\log\Models\Log;
-use ArtemiyKudin\log\Services\LogService;
+use ArtemiyKudin\log\Traits\LogService;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
@@ -28,7 +28,7 @@ class LogServiceProvider extends ServiceProvider
             ], 'lang');
         }
         $this->loadFactoriesFrom(__DIR__.'/../database/factories');
-
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
         $this->registerModelBindings();
 
 //        $permissionLoader->clearClassPermissions();
@@ -103,29 +103,29 @@ class LogServiceProvider extends ServiceProvider
             return;
         }
 
-        Route::macro('role', function ($roles = []) {
-            if (! is_array($roles)) {
-                $roles = [$roles];
-            }
-
-            $roles = implode('|', $roles);
-
-            $this->middleware("role:$roles");
-
-            return $this;
-        });
-
-        Route::macro('permission', function ($permissions = []) {
-            if (! is_array($permissions)) {
-                $permissions = [$permissions];
-            }
-
-            $permissions = implode('|', $permissions);
-
-            $this->middleware("permission:$permissions");
-
-            return $this;
-        });
+//        Route::macro('role', function ($roles = []) {
+//            if (! is_array($roles)) {
+//                $roles = [$roles];
+//            }
+//
+//            $roles = implode('|', $roles);
+//
+//            $this->middleware("role:$roles");
+//
+//            return $this;
+//        });
+//
+//        Route::macro('permission', function ($permissions = []) {
+//            if (! is_array($permissions)) {
+//                $permissions = [$permissions];
+//            }
+//
+//            $permissions = implode('|', $permissions);
+//
+//            $this->middleware("permission:$permissions");
+//
+//            return $this;
+//        });
     }
 
     /**

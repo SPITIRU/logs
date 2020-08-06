@@ -3,13 +3,19 @@
 namespace ArtemiyKudin\log\Traits;
 
 use ArtemiyKudin\log\Models\Log;
-use Beauty\Modules\Common\Models\Profile;
-use Beauty\Modules\Common\Objects\Logs\Constants\LogsTypes;
+use ArtemiyKudin\log\Objects\Constant\LogsTypes;
 use Beauty\Modules\Common\Objects\Profile\Profile as Profiles;
 use Carbon\Carbon;
 
 trait LogService
 {
+    protected $model;
+
+    public function boot()
+    {
+        $this->model = resolve(Log::class);
+    }
+
     public function saveClientImportLog(int $userID, int $profileID, array $arrStatuses): void
     {
         $logTypes = new LogsTypes();
@@ -22,7 +28,7 @@ trait LogService
             $message
         );
 
-        resolve(Log::class)->saveLog($userID, $profileID, $logTypes->importType(), $message);
+        $this->model->saveLog($userID, $profileID, $logTypes->importType(), $message);
     }
 
     public function getLogs(object $data, int $profileID): array
@@ -34,7 +40,7 @@ trait LogService
         $employeeID = $data->logEmployeeFilter;
         $typeID = $data->logTypeFilter;
 
-        $logs = $this->model->where('profileID', $profileID);
+        $logs = Log::where('profileID', $profileID);
         $arrLogs['count'] = $logs->count();
 
         $logs->take($take);
@@ -84,7 +90,7 @@ trait LogService
         return $arrTypes;
     }
 
-    public function getEmployees(Profile $profile): array
+    public function getEmployees($profile): array
     {
         $employees = $profile->employees;
 
@@ -110,7 +116,7 @@ trait LogService
 
         $message = __('logs.save_client_login_log');
 
-        resolve(Log::class)->saveLog($user->userID, $profile->profileID, $logTypes->loginType(), $message);
+        $this->model->saveLog($user->userID, $profile->profileID, $logTypes->loginType(), $message);
     }
 
     public function deleteLog(object $data, int $profileID): array
