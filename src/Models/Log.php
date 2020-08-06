@@ -23,5 +23,6 @@ class Log extends Model
         $model->useragent = request()->userAgent();
         $model->ip = request()->ip();
         $model->isRead = 0;
+        $model->save();
     }
 }

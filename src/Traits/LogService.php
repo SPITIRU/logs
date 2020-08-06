@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtemiyKudin\log\Services;
+namespace ArtemiyKudin\log\Traits;
 
 use ArtemiyKudin\log\Models\Log;
 use Beauty\Modules\Common\Models\Profile;
@@ -8,7 +8,7 @@ use Beauty\Modules\Common\Objects\Logs\Constants\LogsTypes;
 use Beauty\Modules\Common\Objects\Profile\Profile as Profiles;
 use Carbon\Carbon;
 
-class LogService
+trait LogService
 {
     public function saveClientImportLog(int $userID, int $profileID, array $arrStatuses): void
     {
@@ -110,7 +110,7 @@ class LogService
 
         $message = __('logs.save_client_login_log');
 
-        $this->saveLog($user->userID, $profile->profileID, $logTypes->loginType(), $message);
+        resolve(Log::class)->saveLog($user->userID, $profile->profileID, $logTypes->loginType(), $message);
     }
 
     public function deleteLog(object $data, int $profileID): array

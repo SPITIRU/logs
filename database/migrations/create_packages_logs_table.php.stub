@@ -27,6 +27,7 @@ class CreatePackagesLogsTable extends Migration
             $table->integer('userID')->unsigned();
             $table->text('message');
             $table->text('useragent');
+            $table->string('ip')->nullable();
             $table->integer('typeID');
             $table->boolean('isRead');
             $table->timestamps();
@@ -59,10 +60,10 @@ class CreatePackagesLogsTable extends Migration
      */
     public function down()
     {
-        $tableNames = config('permission.table_names');
+        $tableNames = config('artLog.table_names');
 
         if (empty($tableNames)) {
-            throw new \Exception('Error: config/permission.php not found and defaults could not be merged. Please publish the package configuration before proceeding, or drop the tables manually.');
+            throw new \Exception('Error: config/artLog.php not found and defaults could not be merged. Please publish the package configuration before proceeding, or drop the tables manually.');
         }
 
         Schema::drop($tableNames['logs']);
