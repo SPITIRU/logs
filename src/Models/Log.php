@@ -13,7 +13,7 @@ class Log extends Model
     protected $table = 'logs';
     protected $guarded = ['_token'];
 
-    public function saveLog(int $userID, int $profileID, int $typeID, string $message): void
+    public function saveLog(int $userID, int $profileID, int $typeID, int $message): void
     {
         $model = new self();
         $model->userID = $userID;

@@ -8,14 +8,14 @@ Route::group([
 
     // Logs
     Route::group([
-        'prefix' => 'logs'
+        'prefix' => config('artLog.routes.prefix'),
     ], static function () {
-        Route::get('/', [
+        Route::get(config('artLog.routes.url.index'), [
             'uses' => 'LogApiController@index',
             'as' => 'logs.index'
         ]);
 
-        Route::get('/filters', [
+        Route::get(config('artLog.routes.url.filters'), [
             'uses' => 'LogApiController@filters',
             'as' => 'logs.filters'
         ]);

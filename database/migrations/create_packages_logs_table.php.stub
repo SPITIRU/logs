@@ -25,7 +25,7 @@ class CreatePackagesLogsTable extends Migration
             $table->integer('logID', true);
             $table->integer('profileID')->unsigned();
             $table->integer('userID')->unsigned();
-            $table->text('message');
+            $table->integer('message');
             $table->text('useragent');
             $table->string('ip')->nullable();
             $table->integer('typeID');

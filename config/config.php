@@ -21,9 +21,19 @@
 
         'prefix' => 'api/crm',
 
+        'routes' => [
+            'prefix' => 'logs',
+            'url' => [
+                'index' => '/',
+                'filters' => '/filters'
+            ],
+        ],
+
         'table_names' => [
             'logs' => 'logs',
             'users' => 'users',
             'profiles' => 'profiles',
         ],
+
+        'take_logs' => 15
     ];
